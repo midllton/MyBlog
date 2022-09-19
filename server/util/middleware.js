@@ -1,5 +1,6 @@
 const { allowApp } = require('../config/app')
 const util = require('./common')
+
 exports.checkApp = (req, res, next) => {
   //console.log(req.headers)
   if (!allowApp.includes(req.headers.fapp)) { //在传递时，将该参数命名为fapp，也就是说，当请求头中的fapp字段为book字符串时，符合要求
@@ -7,4 +8,9 @@ exports.checkApp = (req, res, next) => {
   } else {
     next()
   }
+}
+
+exports.checkUser = (req, res, next) => {
+  console.log('检测用户登录情况');
+  next()
 }
