@@ -1,4 +1,5 @@
 const { allowApp } = require('../config/app')
+const redis = require('../util/redisDB')
 const util = require('./common')
 
 exports.checkApp = (req, res, next) => {
@@ -12,5 +13,18 @@ exports.checkApp = (req, res, next) => {
 
 exports.checkUser = (req, res, next) => {
   console.log('检测用户登录情况');
-  next()
+  if (req.headers.token) {
+    const key = req.headers.fapp + ':user:token:' + req.headers.token
+    redis.get(key).then(data => {
+      if (data) {
+        req.username = data.username
+        next()
+      } else {
+        res.json(util.getReturnData(403, '登录已过期，请重新登录'))
+        // next()
+      }
+    })
+  } else {
+    res.json(util.getReturnData(403, '请登录'))
+  }
 }

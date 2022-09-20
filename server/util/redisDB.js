@@ -28,6 +28,7 @@ let keys = async (cursor, re, count) => {
   return getTempKeys
 }
 
+// 使用scan()方法，可以传入游标和个数
 redis.scan = async (re, cursor = 0, count = 100) => {
   return await keys(cursor, re, count)
 }

@@ -1,9 +1,8 @@
 const redis = require('../util/redisDB')
 const util = require('../util/common')
-let user = {}
+const crypto = require('crypto')
 
-user.userLogin = () => {}
-user.userRegister = (req, res, next) => {
+exports.userRegister = (req, res, next) => {
   const username = req.body.username
   const password = req.body.password
   const ip = req.ip
@@ -32,4 +31,29 @@ user.userRegister = (req, res, next) => {
   }
 }
 
-module.exports = user
+// 用户登录API
+exports.userLogin = (req, res, next) => {
+  const username = req.body.username
+  const password = req.body.password
+  redis.set('book:user:info:admin', {"login":"0", "password":"admin"}) //模仿登录数据
+  redis.get(req.headers.fapp + ':user:info:' + username).then(data => {
+    if (data) {
+      if (data.login == 0) {
+        if (data.password != password) {
+          res.json(util.getReturnData(1, '用户名或者密码错误'))
+        } else {
+          const token = crypto.createHash('md5').update(Date.now() + username).digest('hex')
+          const tokenKey = req.headers.fapp + ':user:token:' + token
+          delete data.password
+          redis.set(tokenKey, data)
+          redis.expire(tokenKey, 1000)
+          res.json(util.getReturnData(0, '登录成功', {token}))
+        }
+      } else {
+        res.json(util.getReturnData(1, '用户被封停'))
+      }
+    } else {
+      res.json(util.getReturnData(1, '登录失败'))
+    }
+  })
+}
