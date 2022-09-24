@@ -12,6 +12,13 @@ const adminRouter = require('./routes/admin');
 // 创建实例
 const app = express();
 
+// 设置允许跨域访问
+app.all('*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', '*')
+  next()
+})
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
