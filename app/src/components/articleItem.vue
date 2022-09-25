@@ -1,5 +1,5 @@
 <template>
-<div></div>
+<div>1235678</div>
 </template>
 
 <script setup>

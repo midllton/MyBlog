@@ -36,7 +36,7 @@ onMounted(async () => {
       justify-content: center;
       align-items: center;
       color: #aaa;
-      background-color: #bfa;
+      // background-color: #bfa;
       .line{
         // border-right: 1px solid black;
         width: 1px;

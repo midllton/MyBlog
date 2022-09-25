@@ -6,6 +6,10 @@ const routes = [
     component: () => import(/* webpackChunkName: 'Layout' */'@/views/Layout.vue'),
     children: [
       {
+        path: '/',
+        component: () => import(/* webpackChunkName: 'Home' */'@/views/Home.vue')
+      },
+      {
         path: 'admin',
         component: () => import(/* webpackChunkName: 'Admin' */'@/views/admin/Admin.vue'),
         children: [
@@ -17,6 +21,10 @@ const routes = [
         ]
       }
     ]
+  },
+  {
+    path: '/login',
+    component: () => import(/* webpackChunkName: 'Login' */'@/views/Login.vue')
   }
 ]
 
