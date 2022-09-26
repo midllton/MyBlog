@@ -71,14 +71,14 @@ redis.expire = (key, ttl) => {
 
 // 获取自增id
 let id = async (key) => {
-  console.log('查找' + key)
+  // console.log('查找' + key)
   let id = await new Promise((resolve => {
     redisClient.incr(key, (err, res) => {
-      console.log(res)
+      // console.log('incr.res=' + res)
       return resolve(res)
     })
   }))
-  console.log(id)
+  // console.log(id)
   return id
 }
 

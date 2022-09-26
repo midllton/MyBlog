@@ -45,11 +45,11 @@ exports.setArticle = (req, res, next) => {
   let data = req.body.article
   data.show = 0
   let key = ''
-  if (data.a_id) {
+  if (data.a_id) { // a_id=1修改文章
     key = req.headers.fapp + ':article:' + data.a_id
     redis.set(key, data)
     res.json(util.getReturnData(0, '修改成功'))
-  } else {
+  } else { //无a_id添加文章
     data.time = Date.now()
     key = req.headers.fapp + ':article:'
     redis.incr(key).then(id => {

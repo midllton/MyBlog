@@ -99,7 +99,7 @@ exports.getArticle = (req, res, next) => {
   const key = req.headers.fapp + ':article:' + req.params.id
   redis.get(key).then(data => {
     if (data) {
-      if (data.show == 1) {
+      if (data.show == 1) { //show=0文章添加未发布
         // 获取文章分类详情
         redis.get(req.headers.fapp + ':a_type').then(type => {
           type.map(item => {

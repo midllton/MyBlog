@@ -18,6 +18,7 @@
           :class="{active:newItem === activeName}"
           @mouseenter="mouseenter(newItem)"
           @mouseleave="activeName=''"
+          @click="navTo(index)"
           ><span class="iconfont icon-yuandianzhong"></span>{{newItem}}</li>
         </ul>
       </div>
@@ -30,6 +31,7 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const nav = reactive([
   { eName: 'content', show: true, cName: '内容管理', text: ['所有文章', '写文章', '分类', '标签'] },
@@ -37,9 +39,16 @@ const nav = reactive([
   { eName: 'analysis', show: true, cName: '统计分析', text: ['浏览数', '收藏数'] }
 ])
 const activeName = ref('')
+const router = useRouter()
 
 const mouseenter = (data) => {
   activeName.value = data
+}
+
+const navTo = (data) => {
+  if (data === 1) {
+    router.push('admin/write')
+  }
 }
 </script>
 
@@ -90,6 +99,6 @@ const mouseenter = (data) => {
 .main{
   position: absolute;
   top: 0;
-  left: 230px;
+  left: 150px;
 }
 </style>
