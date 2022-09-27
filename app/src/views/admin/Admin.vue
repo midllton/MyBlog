@@ -34,7 +34,7 @@ import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const nav = reactive([
-  { eName: 'content', show: true, cName: '内容管理', text: ['所有文章', '写文章', '分类', '标签'] },
+  { eName: 'content', show: true, cName: '内容管理', text: ['所有文章', '写文章', '管理分类', '管理标签'] },
   { eName: 'user', show: true, cName: '用户管理', text: ['新增用户', '活跃用户'] },
   { eName: 'analysis', show: true, cName: '统计分析', text: ['浏览数', '收藏数'] }
 ])
@@ -99,6 +99,6 @@ const navTo = (data) => {
 .main{
   position: absolute;
   top: 0;
-  left: 150px;
+  left: 240px;
 }
 </style>

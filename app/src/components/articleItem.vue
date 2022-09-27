@@ -9,10 +9,9 @@
   </div>
   <div class="down">
     <div class="left">
-      <span class="iconfont icon-rili"></span><div class="date">2022-09-26</div>
-      <span class="iconfont icon-pinglun"></span><div class="comments"><span>1230</span>Comments</div>
-      <span class="iconfont icon-chakan"></span><div class="views"><span>23240</span>Views</div>
-      <span class="iconfont icon-like"></span><div class="likes"><span>235360</span>Likes</div>
+      <span class="iconfont icon-rili"></span><div class="date">{{time}}</div>
+      <span class="iconfont icon-chakan"></span><div class="views"><span>{{data.view}}</span>Views</div>
+      <span class="iconfont icon-like"></span><div class="likes"><span>{{data.like}}</span>Likes</div>
     </div>
     <div class="right">
       阅读全文<span class="iconfont icon-jinrujiantouxiao"></span>
@@ -25,6 +24,7 @@
 import request from '@/utils/api'
 import { ref, onMounted, defineProps } from 'vue'
 const data = ref({})
+const time = ref('')
 
 defineProps({
   num: {
@@ -34,8 +34,9 @@ defineProps({
 
 onMounted(async (num = 1) => {
   data.value = await request('getArticle/' + num, 'get')
-  console.log(num)
-  console.log(data)
+  console.log(data.value)
+  const date = new Date(parseInt(data.value.time)) // 参数需要毫秒数，所以这里将秒数乘于 1000
+  time.value = date.getFullYear() + '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getDate()
 })
 </script>
 

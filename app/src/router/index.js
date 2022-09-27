@@ -16,7 +16,10 @@ const routes = [
           {
             path: 'write',
             component: () => import(/* webpackChunkName: 'WriteArticle' */'@/views/admin/WriteArticle.vue')
-
+          },
+          {
+            path: 'type',
+            component: () => import(/* webpackChunkName: 'ManageType' */'@/views/admin/ManageType.vue')
           }
         ]
       }
