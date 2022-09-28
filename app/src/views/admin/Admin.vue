@@ -47,7 +47,9 @@ const mouseenter = (data) => {
 
 const navTo = (data) => {
   if (data === 1) {
-    router.push('admin/write')
+    router.push('/admin/write')
+  } else if (data === 2) {
+    router.push('/admin/type')
   }
 }
 </script>
@@ -99,6 +101,6 @@ const navTo = (data) => {
 .main{
   position: absolute;
   top: 0;
-  left: 240px;
+  left: 244px;
 }
 </style>

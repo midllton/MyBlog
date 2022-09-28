@@ -102,6 +102,22 @@ exports.setArticleType = (req, res, next) => {
   res.json(util.getReturnData(0, '创建分类成功'))
 }
 
+// 创建分类，跟前端addType路由相对应
+exports.setType = (req, res, next) => {
+  // 获取传递的值，应当确定的是type中对应的唯一key是不重复的
+  const data = req.body.type
+  const key = req.headers.fapp + ':type'
+  redis.get(key).then(val => {
+    if (!val) {
+      redis.set(key, data)
+    } else {
+      val.push(...data)
+      redis.set(key, val)
+    }
+  })
+  res.json(util.getReturnData(0, '分类添加成功'))
+}
+
 // 文章的发布和删除
 exports.showArticle = (req, res, next) => {
   const key = req.headers.fapp + ':article:' + req.body.a_id

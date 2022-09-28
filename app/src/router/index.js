@@ -20,6 +20,10 @@ const routes = [
           {
             path: 'type',
             component: () => import(/* webpackChunkName: 'ManageType' */'@/views/admin/ManageType.vue')
+          },
+          {
+            path: 'addType',
+            component: () => import(/* webpackChunkName: 'AddType' */'@/views/admin/AddType.vue')
           }
         ]
       }
