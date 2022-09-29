@@ -43,7 +43,7 @@ exports.setIndexPic = (req, res, next) => {
 // 此时直接更新；如果没有包含a_id，则首先通过Redis中的incr()方法获取ID，然后执行相关操作
 exports.setArticle = (req, res, next) => {
   let data = req.body.article
-  data.show = 0
+  data.show = 1
   let key = ''
   if (data.a_id) { // a_id=1修改文章
     key = req.headers.fapp + ':article:' + data.a_id
@@ -56,25 +56,23 @@ exports.setArticle = (req, res, next) => {
       data.a_id = id
       key = key + id
       redis.set(key, data)
-      let a_type = data.type
-      let newKey = req.headers.fapp + ':a_type:' + a_type
-      redis.get(newKey).then(newData => {
+      const type1 = data.type1
+      let newKey1 = req.headers.fapp + ':type1:' + type1
+      redis.get(newKey1).then(newData => {
         if(!newData) {
           newData = []
         }
         newData.push(key)
-        redis.set(req.headers.fapp + ':a_type:' + a_type, newData)
+        redis.set(req.headers.fapp + ':type1:' + type1, newData)
       })
-      let tags = data.tag
-      tags.map(item => {
-        let tKeyMd5 = crypto.createHash('md5').update(item).digest('hex')
-        redis.get(req.headers.fapp + ':tag:' + tKeyMd5).then(newData => {
-          if(!newData) {
-            newData = []
-          }
-          newData.push(key)
-          redis.set(req.headers.fapp + ':tag:' + tKeyMd5, newData)
-        })
+      const type2 = data.type2
+      let newKey2 = req.headers.fapp + ':type2:' + type2
+      redis.get(newKey2).then(newData => {
+        if(!newData) {
+          newData = []
+        }
+        newData.push(key)
+        redis.set(req.headers.fapp + ':type1:' + type1+ ':type2:' + type2, newData)
       })
       redis.zadd(req.headers.fapp + ':a_time', key, Date.now())
       redis.zadd(req.headers.fapp + ':a_view', key, 0)

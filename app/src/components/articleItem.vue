@@ -3,7 +3,7 @@
   <div class="up">
     <div class="img"><img src="@/assets/images/20220909_191452.jpg" alt="" /></div>
     <div class="text">
-      <div class="title"><div class="tag">{{data.type}}</div><div class="maintitle">{{data.title}}</div></div>
+      <div class="title"><div class="tag">{{type}}</div><div class="maintitle">{{data.title}}</div></div>
       <div class="content" v-html="data.text"></div>
     </div>
   </div>
@@ -13,7 +13,7 @@
       <span class="iconfont icon-chakan"></span><div class="views"><span>{{data.view}}</span>Views</div>
       <span class="iconfont icon-like"></span><div class="likes"><span>{{data.like}}</span>Likes</div>
     </div>
-    <div class="right">
+    <div class="right" @click="navTo(num)" :class="{show:flag}" @mouseenter="showArticle(true)" @mouseleave="showArticle(false)">
       阅读全文<span class="iconfont icon-jinrujiantouxiao"></span>
     </div>
   </div>
@@ -21,10 +21,14 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
 import request from '@/utils/api'
-import { ref, onMounted, defineProps } from 'vue'
+import { ref, onMounted, defineProps, reactive } from 'vue'
 const data = ref({})
 const time = ref('')
+const type = ref('')
+const router = useRouter()
+const flag = ref(false)
 
 defineProps({
   num: {
@@ -32,11 +36,25 @@ defineProps({
   }
 })
 
+const articleType = reactive([
+  { id: 1, name: '技术', children: [{ subID: 1, subName: '英语' }, { subID: 2, subName: '计算机基础' }, { subID: 3, subName: '行业基础' }, { subID: 4, subName: '行业通用' }] },
+  { id: 2, name: '读书', children: [{ subID: 1, subName: '诗词' }, { subID: 2, subName: '历史' }, { subID: 3, subName: '小说' }, { subID: 4, subName: '其他阅读' }] },
+  { id: 3, name: '研究', children: [{ subID: 1, subName: '写作' }, { subID: 2, subName: '区块链' }, { subID: 3, subName: '其他研究' }] }
+])
+
+const navTo = (data = 1) => {
+  router.push('/article/' + data)
+}
+
+const showArticle = (data) => {
+  flag.value = data
+}
 onMounted(async (num = 1) => {
   data.value = await request('getArticle/' + num, 'get')
-  console.log(data.value)
-  const date = new Date(parseInt(data.value.time)) // 参数需要毫秒数，所以这里将秒数乘于 1000
+  // console.log(data.value)
+  const date = new Date(parseInt(data.value.time))
   time.value = date.getFullYear() + '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getDate()
+  type.value = articleType[data.value.type1 - 1].children[data.value.type2 - 1].subName
 })
 </script>
 
@@ -155,12 +173,17 @@ onMounted(async (num = 1) => {
         top: 5px;
         width: 100px;
         height: 45px;
+        color: orange;
         line-height: 45px;
         // background-color: skyblue;
         .iconfont{
           font-size: 10px;
           margin-left: 5px;
         }
+      }
+      .show{
+        color: rgb(163, 163, 241);
+        cursor: pointer;
       }
     }
   }

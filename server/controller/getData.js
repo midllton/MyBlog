@@ -100,23 +100,23 @@ exports.getArticle = (req, res, next) => {
   redis.get(key).then(data => {
     if (data) {
       if (data.show == 1) { //show=0文章添加未发布
-        // 获取文章分类详情
-        redis.get(req.headers.fapp + ':a_type').then(type => {
-          type.map(item => {
-            if (item.uid == data.type) {
-              data.typename = item.name
-            }
-          })
-          // 获取文章阅读量
-          redis.zscore(req.headers.fapp + ':a_view', key).then(view => {
-            data.view = view
-            // 获取文章点赞量
-            redis.zscore(req.headers.fapp + ':a_like', key).then(like => {
-              data.like = like
-              res.json(util.getReturnData(0, 'success', data))
-            })
+        // 获取文章阅读量
+        redis.zscore(req.headers.fapp + ':a_view', key).then(view => {
+          data.view = view
+          // 获取文章点赞量
+          redis.zscore(req.headers.fapp + ':a_like', key).then(like => {
+            data.like = like
+            res.json(util.getReturnData(0, 'success', data))
           })
         })
+        // // 获取文章分类详情
+        // redis.get(req.headers.fapp + ':a_type').then(type => {
+        //   type.map(item => {
+        //     if (item.uid == data.type) {
+        //       data.typename = item.name
+        //     }
+        //   })
+        // })
       } else {
         res.json(util.getReturnData(403, '该文章已被删除或不存在'))
       }
