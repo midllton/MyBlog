@@ -5,5 +5,6 @@ import store from './store'
 import 'normalize.css'
 import '@/assets/styles/common.less'
 import '@/assets/iconfont/iconfont.css'
+// import 'bytemd/dist/index.css'
 
 createApp(App).use(store).use(router).mount('#app')

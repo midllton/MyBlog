@@ -35,6 +35,7 @@ onMounted(async () => {
   .footer{
     height: 60px;
     background-color: #333;
+    margin-top: 10px;
     .container{
       display: flex;
       height: 100%;

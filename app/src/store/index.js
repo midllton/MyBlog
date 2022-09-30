@@ -2,19 +2,17 @@ import { createStore } from 'vuex'
 import request from '@/utils/api'
 
 export default createStore({
-  state () {
+  state: () => {
     return {
-      articles: []
+      articles: JSON.parse(sessionStorage.getItem('articles')) || []
     }
   },
   getters: {
-    getArticle () {
-
-    }
   },
   mutations: {
     update (state, data) {
       state.articles.push(data)
+      sessionStorage.setItem('articles', JSON.stringify(state.articles))
     }
   },
   actions: {
