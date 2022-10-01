@@ -33,7 +33,15 @@ const routes = [
       },
       {
         path: 'it',
-        component: () => import(/* webpackChunkName: 'IT' */'@/views/IT.vue')
+        component: () => import(/* webpackChunkName: 'Type1' */'@/views/Type1.vue')
+      },
+      {
+        path: 'book',
+        component: () => import(/* webpackChunkName: 'Type1' */'@/views/Type1.vue')
+      },
+      {
+        path: 'research',
+        component: () => import(/* webpackChunkName: 'Type1' */'@/views/Type1.vue')
       }
     ]
   },

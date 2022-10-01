@@ -5,7 +5,7 @@ const crypto = require('crypto')
 exports.getNavMenu = (req, res, next) => {
   const key = req.headers.fapp + ':nav_menu'
   redis.get(key).then((data) => {
-    console.log(data)
+    // console.log(data)
     res.json(util.getReturnData(0, '', data))
   })
 }
@@ -156,6 +156,24 @@ exports.getArticles = (req, res, next) => {
     })
     let t_data = await Promise.all(result)
     res.json(util.getReturnData(0, '', t_data))
+  })
+}
+
+// 根据一级分类获取所有的文章
+exports.getType1 = (req, res, next) => {
+  const key = req.headers.fapp + ':type1:' + req.params.id
+  redis.get(key).then(async (data) => {
+    if (data) {
+      const result = data.map((item) => {
+        return redis.get(item).then(value => {
+          return value
+        })
+      })
+      let t_data = await Promise.all(result)
+      res.json(util.getReturnData(0, '', t_data))
+    } else {
+      res.json(util.getReturnData(0, '该分类下没有文章'))
+    }
   })
 }
 
