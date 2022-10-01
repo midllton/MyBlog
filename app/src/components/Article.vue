@@ -14,22 +14,18 @@
 </template>
 
 <script setup>
+import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { ref } from 'vue'
-import { useStore } from 'vuex'
 import BreadVue from './Bread.vue'
-
-const route = useRoute()
 const store = useStore()
+const route = useRoute()
 const data = ref({})
 const num = ref(0)
 const state = ref([])
 const time = ref('')
 
 num.value = route.params.id
-if (!sessionStorage.getItem('articles')) {
-  store.dispatch('getArticle')
-}
 state.value = store.state.articles
 data.value = state.value[num.value - 1]
 const date = new Date(parseInt(data.value.time))

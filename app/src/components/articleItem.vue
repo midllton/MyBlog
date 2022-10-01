@@ -24,24 +24,16 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-// import request from '@/utils/api'
 import { ref, defineProps, reactive } from 'vue'
-const data = ref({})
+// const data = ref({})
 const time = ref('')
 const router = useRouter()
 const flag = ref(false)
-const state = ref([])
-const store = useStore()
-
 const props = defineProps({
-  num: {
-    type: Number
-  }
+  num: { type: Number },
+  data: { type: Object }
 })
-state.value = store.state.articles
-data.value = state.value[props.num - 1]
-const date = new Date(parseInt(data.value.time))
+const date = new Date(parseInt(props.data.time))
 time.value = date.getFullYear() + '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getDate()
 const articleType = reactive([
   { id: 1, name: '技术', children: [{ subID: 1, subName: '英语' }, { subID: 2, subName: '计算机基础' }, { subID: 3, subName: '行业基础' }, { subID: 4, subName: '行业通用' }] },
@@ -56,13 +48,6 @@ const navTo = (data) => {
 const showArticle = (data) => {
   flag.value = data
 }
-// onMounted(async (num) => {
-//   data.value = await request('getArticle/' + num, 'get')
-//   // console.log(data.value)
-//   const date = new Date(parseInt(data.value.time))
-//   time.value = date.getFullYear() + '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getDate()
-//   type.value = articleType[data.value.type1 - 1].children[data.value.type2 - 1].subName
-// })
 </script>
 
 <style lang="less" scoped>
