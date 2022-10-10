@@ -4,15 +4,23 @@
 
 <script setup>
 import articleItemVue from '@/components/articleItem.vue'
-import { ref, reactive } from 'vue'
+import { ref, reactive, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
 const state = ref([])
 const store = useStore()
 const num = reactive([{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }])
-if (!sessionStorage.getItem('articles')) {
-  store.dispatch('getArticle')
-}
-state.value = store.state.articles
+
+// if (!sessionStorage.getItem('articles')) {
+//   store.dispatch('getArticle')
+// }
+
+// state.value = store.state.articles
+onBeforeMount(async () => {
+  if (!sessionStorage.getItem('articles')) {
+    await store.dispatch('getArticle')
+  }
+  state.value = store.state.articles
+})
 </script>
 
 <style lang="less" scoped>

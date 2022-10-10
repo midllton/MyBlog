@@ -14,21 +14,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import request from '@/utils/api'
+import { ref } from 'vue'
+// import request from '@/utils/api'
 
-const footer = ref([])
+// const footer = ref([])
 const flag = ref(false)
 
 const showAdmin = (data) => {
   flag.value = data
 }
 
-onMounted(async () => {
-  const data = await request('getFooter', 'get')
-  // console.log(data)
-  footer.value = data
-})
+// onMounted(async () => {
+//   const data = await request('getFooter', 'get')
+//   // console.log(data)
+//   footer.value = data
+// })
 </script>
 
 <style lang="less" scoped>

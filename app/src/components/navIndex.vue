@@ -23,7 +23,16 @@
         </ul>
       </div>
       <div class="login">
-        <span :class="{show:flag1}" @mouseenter="showLogin(true)" @mouseleave="showLogin(false)">登录</span>/<span :class="{show:flag2}" @mouseenter="showRegister(true)" @mouseleave="showRegister(false)">注册</span>
+        <span
+        :class="{show:flag1}"
+        @mouseenter="showLogin(true)"
+        @mouseleave="showLogin(false)"
+        @click="navTo('/login')">登录</span>/
+        <span
+        :class="{show:flag2}"
+        @mouseenter="showRegister(true)"
+        @mouseleave="showRegister(false)"
+        @click="navTo('/register')">注册</span>
       </div>
     </div>
   </div>
