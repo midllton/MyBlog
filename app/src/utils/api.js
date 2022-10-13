@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:3000/'
-// const baseURL = 'http://106.14.34.227:3000/'
+// const baseURL = 'http://localhost:3000/'
+const baseURL = 'http://106.14.34.227:3000/'
 
 // const request = async (url, method, data) => {
 //   const headers = { fapp: 'book', 'Content-Type': 'application/json' }

@@ -4,11 +4,11 @@
   </div> -->
   <div class="footer">
     <div class="container">
-      <span>shenjixu版权所有</span>
+      <span>个人博客版权所有</span>
       <span class="line"></span>
       <span><router-link to="/admin" class="admin" :class="{show:flag}" @mouseenter="showAdmin(true)" @mouseleave="showAdmin(false)">后台管理</router-link></span>
       <span class="line"></span>
-      <a href="#">粤ICP备17092242号</a>
+      <a href="#">备案号xxxxxx</a>
     </div>
   </div>
 </template>

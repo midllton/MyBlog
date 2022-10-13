@@ -36,12 +36,32 @@ const routes = [
         component: () => import(/* webpackChunkName: 'Type1' */'@/views/Type1.vue')
       },
       {
+        path: 'it/:id',
+        component: () => import(/* webpackChunkName: 'Type2' */'@/views/Type2.vue')
+      },
+      {
         path: 'book',
         component: () => import(/* webpackChunkName: 'Type1' */'@/views/Type1.vue')
       },
       {
+        path: 'book/:id',
+        component: () => import(/* webpackChunkName: 'Type2' */'@/views/Type2.vue')
+      },
+      {
         path: 'research',
         component: () => import(/* webpackChunkName: 'Type1' */'@/views/Type1.vue')
+      },
+      {
+        path: 'research/:id',
+        component: () => import(/* webpackChunkName: 'Type2' */'@/views/Type2.vue')
+      },
+      {
+        path: 'message',
+        component: () => import(/* webpackChunkName: 'Message' */'@/components/Message.vue')
+      },
+      {
+        path: 'me',
+        component: () => import(/* webpackChunkName: 'Me' */'@/components/Me.vue')
       }
     ]
   },

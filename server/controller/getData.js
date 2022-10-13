@@ -177,6 +177,24 @@ exports.getType1 = (req, res, next) => {
   })
 }
 
+// 根据二级分类获取所有的文章
+exports.getType2 = (req, res, next) => {
+  const key = req.headers.fapp + ':type1:' + req.params.id1 + ':type2:' + req.params.id2
+  redis.get(key).then(async (data) => {
+    if (data) {
+      const result = data.map((item) => {
+        return redis.get(item).then(value => {
+          return value
+        })
+      })
+      let t_data = await Promise.all(result)
+      res.json(util.getReturnData(0, '', t_data))
+    } else {
+      res.json(util.getReturnData(0, '该分类下没有文章'))
+    }
+  })
+}
+
 // 浏览量自动加1
 exports.viewArticle = (req, res, next) => {
   const key = req.headers.fapp + ':article:' + req.params.id
